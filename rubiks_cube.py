@@ -1,5 +1,6 @@
 import colorama
 import enum
+import random
 
 class Color(enum.Enum):
     white = 0
@@ -44,11 +45,32 @@ class RubiksCube(object):
         self.left = left if left else [[Color.green] * 3] * 3
         self.down = down if down else [[Color.yellow] * 3] * 3
 
+        self.__check()
+
     # X clockwise, x counterclockwise
 
     # 012    630
     # 345 -> 741
     # 678    852
+
+    def shuffle(self, n=40):
+          rubiks_cube = self
+          for i in range(n):
+                rubiks_cube = random.choice([
+                      rubiks_cube.U,
+                      rubiks_cube.u,
+                      rubiks_cube.F,
+                      rubiks_cube.f,
+                      rubiks_cube.R,
+                      rubiks_cube.r,
+                      rubiks_cube.B,
+                      rubiks_cube.b,
+                      rubiks_cube.L,
+                      rubiks_cube.l,
+                      rubiks_cube.D,
+                      rubiks_cube.d,
+                ])()
+          return rubiks_cube
 
     def FURurf(self):
         return self.F().U().R().u().r().f()
@@ -142,7 +164,7 @@ class RubiksCube(object):
             right=[
                 [self.down[0][2], self.right[0][1], self.right[0][2]],
                 [self.down[0][1], self.right[1][1], self.right[1][2]],
-                [self.down[0][2], self.right[2][1], self.right[2][2]],
+                [self.down[0][0], self.right[2][1], self.right[2][2]],
             ],
             back=self.back,
             left=[
@@ -257,7 +279,7 @@ class RubiksCube(object):
             down=[
                 self.down[0],
                 self.down[1],
-                [self.right[1][2], self.right[1][2], self.right[0][2]],
+                [self.right[2][2], self.right[1][2], self.right[0][2]],
             ],
         )
 
@@ -364,6 +386,16 @@ class RubiksCube(object):
             ],
             down=self.__counterclockwise(self.down),
         )
+
+    def __check(self):
+        count = dict()
+        for face in [self.up, self.front, self.right, self.left, self.back, self.down]:
+            for row in face:
+                for square in row:
+                    count[square] = count.setdefault(square, 0) + 1
+        for key, value in count.items():
+            if value != 9:
+                 raise ValueError('%s has incorrect value %d' % (key, value))
 
     def __clockwise(self, face):
         return [
