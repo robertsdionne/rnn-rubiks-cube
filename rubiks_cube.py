@@ -50,6 +50,9 @@ class RubiksCube(object):
     # 345 -> 741
     # 678    852
 
+    def FURurf(self):
+        return self.F().U().R().u().r().f()
+
     def U(self):
         return RubiksCube(
             up=self.__clockwise(self.up),
@@ -377,7 +380,17 @@ class RubiksCube(object):
         ]
 
     def __repr__(self):
-        return 'RubiksCube(\n%s)' % '\n\n'.join(map(self.__repr_color, [self.up, self.front, self.right, self.back, self.left, self.down]))
+        rows = [
+            '\n   '.join(map(self.__repr_colors, self.up)),
+            ''.join(map(self.__repr_color, self.left[0] + self.front[0] + self.right[0] + self.back[0])),
+            ''.join(map(self.__repr_color, self.left[1] + self.front[1] + self.right[1] + self.back[1])),
+            ''.join(map(self.__repr_color, self.left[2] + self.front[2] + self.right[2] + self.back[2])),
+            '   ' + '\n   '.join(map(self.__repr_colors, self.down)),
+        ]
+        return 'RubiksCube(\n   %s\n)' % '\n'.join(rows)
 
-    def __repr_color(self, face):
-        return '\n'.join(map(lambda colors: ''.join(map(lambda color: color.color() + '\u25A0', colors)), face)) + colorama.Style.RESET_ALL
+    def __repr_colors(self, colors):
+        return ''.join(map(self.__repr_color, colors)) + colorama.Style.RESET_ALL
+
+    def __repr_color(self, color):
+        return color.color() + '\u25A0'
