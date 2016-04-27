@@ -208,42 +208,106 @@ class RubiksCube(object):
 
     def B(self):
         return RubiksCube(
-            up=[],
+            up=[
+                [self.right[0][2], self.right[1][2], self.right[2][2]],
+                self.up[1],
+                self.up[2],
+            ],
             front=self.front,
-            right=[],
+            right=[
+                [self.right[0][0], self.right[0][1], self.down[2][2]],
+                [self.right[1][0], self.right[1][1], self.down[2][1]],
+                [self.right[2][0], self.right[2][1], self.down[2][0]],
+            ],
             back=self.__clockwise(self.back),
-            left=[],
-            down=[],
+            left=[
+                [self.up[0][2], self.left[0][1], self.left[0][2]],
+                [self.up[0][1], self.left[1][1], self.left[1][2]],
+                [self.up[0][0], self.left[2][1], self.left[2][2]],
+            ],
+            down=[
+                self.down[0],
+                self.down[1],
+                [self.left[0][0], self.left[1][0], self.left[2][0]],
+            ],
         )
 
     def b(self):
         return RubiksCube(
-            up=[],
+            up=[
+                [self.left[2][0], self.left[1][0], self.left[0][0]],
+                self.up[1],
+                self.up[2],
+            ],
             front=self.front,
-            right=[],
+            right=[
+                [self.right[0][0], self.right[0][1], self.up[0][0]],
+                [self.right[1][0], self.right[1][1], self.up[0][1]],
+                [self.right[2][0], self.right[2][1], self.up[0][2]],
+            ],
             back=self.__counterclockwise(self.back),
-            left=[],
-            down=[],
+            left=[
+                [self.down[2][0], self.left[0][1], self.left[0][2]],
+                [self.down[2][1], self.left[1][1], self.left[1][2]],
+                [self.down[2][2], self.left[2][1], self.left[2][2]],
+            ],
+            down=[
+                self.down[0],
+                self.down[1],
+                [self.right[1][2], self.right[1][2], self.right[0][2]],
+            ],
         )
 
     def L(self):
         return RubiksCube(
-            up=[],
-            front=[],
+            up=[
+                [self.back[2][2], self.up[0][1], self.up[0][2]],
+                [self.back[1][2], self.up[1][1], self.up[1][2]],
+                [self.back[0][2], self.up[2][1], self.up[2][2]],
+            ],
+            front=[
+                [self.up[0][0], self.front[0][1], self.front[0][2]],
+                [self.up[1][0], self.front[1][1], self.front[1][2]],
+                [self.up[2][0], self.front[2][1], self.front[2][2]],
+            ],
             right=self.right,
-            back=[],
+            back=[
+                [self.back[0][0], self.back[0][1], self.down[2][0]],
+                [self.back[1][0], self.back[1][1], self.down[1][0]],
+                [self.back[2][0], self.back[2][1], self.down[0][0]],
+            ],
             left=self.__clockwise(self.left),
-            down=[],
+            down=[
+                [self.front[0][0], self.down[0][1], self.down[0][2]],
+                [self.front[1][0], self.down[1][1], self.down[1][2]],
+                [self.front[2][0], self.down[2][1], self.down[2][2]],
+            ],
         )
 
     def l(self):
         return RubiksCube(
-            up=[],
-            front=[],
+            up=[
+                [self.front[0][0], self.up[0][1], self.up[0][2]],
+                [self.front[1][0], self.up[1][1], self.up[1][2]],
+                [self.front[2][0], self.up[2][1], self.up[2][2]],
+            ],
+            front=[
+                [self.down[0][0], self.front[0][1], self.front[0][2]],
+                [self.down[1][0], self.front[1][1], self.front[1][2]],
+                [self.down[2][0], self.front[2][1], self.front[2][2]],
+            ],
             right=self.right,
-            back=[],
+            back=[
+                [self.back[0][0], self.back[0][1], self.up[2][0]],
+                [self.back[1][0], self.back[1][1], self.up[1][0]],
+                [self.back[2][0], self.back[2][1], self.up[0][0]],
+            ],
             left=self.__counterclockwise(self.left),
-            down=[],
+            down=[
+                [self.back[2][2], self.down[0][1], self.down[0][2]],
+                [self.back[1][2], self.down[1][1], self.down[1][2]],
+                [self.back[0][2], self.down[2][1], self.down[2][2]],
+            ],
         )
 
     def D(self):
