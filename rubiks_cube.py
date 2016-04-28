@@ -53,29 +53,44 @@ class RubiksCube(object):
     # 345 -> 741
     # 678    852
 
+    OPS = [
+        'U', 'u', 'F', 'f', 'R', 'r', 'B', 'b', 'L', 'l', 'D', 'd', 'X', 'x', 'Y', 'y', 'Z', 'z',
+    ]
+    INVERSE = {
+        'U': 'u',
+        'u': 'U',
+        'F': 'f',
+        'f': 'F',
+        'R': 'r',
+        'r': 'R',
+        'B': 'b',
+        'b': 'B',
+        'L': 'l',
+        'l': 'L',
+        'D': 'd',
+        'd': 'D',
+        'X': 'x',
+        'x': 'X',
+        'Y': 'y',
+        'y': 'Y',
+        'Z': 'z',
+        'z': 'Z',
+    }
+
     def shuffle(self, n=40):
-        rubiks_cube = self
+        ops = list()
+        inverses = list()
         for i in range(n):
-            rubiks_cube = random.choice([
-                rubiks_cube.U,
-                rubiks_cube.u,
-                rubiks_cube.F,
-                rubiks_cube.f,
-                rubiks_cube.R,
-                rubiks_cube.r,
-                rubiks_cube.B,
-                rubiks_cube.b,
-                rubiks_cube.L,
-                rubiks_cube.l,
-                rubiks_cube.D,
-                rubiks_cube.d,
-                rubiks_cube.X,
-                rubiks_cube.x,
-                rubiks_cube.Y,
-                rubiks_cube.y,
-                rubiks_cube.Z,
-                rubiks_cube.z,
-            ])()
+            op = random.choice(self.OPS)
+            ops.append(op)
+            inverses.append(self.INVERSE[op])
+        return self.do(ops), ''.join(reversed(inverses))
+
+    def do(self, ops):
+        rubiks_cube = self
+        for op in ops:
+            if op in self.OPS:
+                rubiks_cube = RubiksCube.__dict__[op](rubiks_cube)
         return rubiks_cube
 
     def FURurf(self):
