@@ -93,6 +93,46 @@ class RubiksCube(object):
                 rubiks_cube = RubiksCube.__dict__[op](rubiks_cube)
         return rubiks_cube
 
+    @staticmethod
+    def simplify(solution):
+        solution = solution.replace('UUU', 'u')
+        solution = solution.replace('uuu', 'U')
+        solution = solution.replace('FFF', 'f')
+        solution = solution.replace('fff', 'F')
+        solution = solution.replace('RRR', 'r')
+        solution = solution.replace('rrr', 'R')
+        solution = solution.replace('BBB', 'b')
+        solution = solution.replace('bbb', 'B')
+        solution = solution.replace('LLL', 'l')
+        solution = solution.replace('lll', 'L')
+        solution = solution.replace('DDD', 'd')
+        solution = solution.replace('ddd', 'D')
+        solution = solution.replace('XXX', 'x')
+        solution = solution.replace('xxx', 'X')
+        solution = solution.replace('YYY', 'y')
+        solution = solution.replace('yyy', 'Y')
+        solution = solution.replace('ZZZ', 'z')
+        solution = solution.replace('zzz', 'Z')
+        solution = solution.replace('Uu', '')
+        solution = solution.replace('uU', '')
+        solution = solution.replace('Ff', '')
+        solution = solution.replace('fF', '')
+        solution = solution.replace('Rr', '')
+        solution = solution.replace('rR', '')
+        solution = solution.replace('Bb', '')
+        solution = solution.replace('bB', '')
+        solution = solution.replace('Ll', '')
+        solution = solution.replace('lL', '')
+        solution = solution.replace('Dd', '')
+        solution = solution.replace('dD', '')
+        solution = solution.replace('Xx', '')
+        solution = solution.replace('xX', '')
+        solution = solution.replace('Yy', '')
+        solution = solution.replace('yY', '')
+        solution = solution.replace('Zz', '')
+        solution = solution.replace('zZ', '')
+        return solution
+
     def FURurf(self):
         return self.F().U().R().u().r().f()
 
