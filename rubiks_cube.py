@@ -54,23 +54,29 @@ class RubiksCube(object):
     # 678    852
 
     def shuffle(self, n=40):
-          rubiks_cube = self
-          for i in range(n):
-                rubiks_cube = random.choice([
-                      rubiks_cube.U,
-                      rubiks_cube.u,
-                      rubiks_cube.F,
-                      rubiks_cube.f,
-                      rubiks_cube.R,
-                      rubiks_cube.r,
-                      rubiks_cube.B,
-                      rubiks_cube.b,
-                      rubiks_cube.L,
-                      rubiks_cube.l,
-                      rubiks_cube.D,
-                      rubiks_cube.d,
-                ])()
-          return rubiks_cube
+        rubiks_cube = self
+        for i in range(n):
+            rubiks_cube = random.choice([
+                rubiks_cube.U,
+                rubiks_cube.u,
+                rubiks_cube.F,
+                rubiks_cube.f,
+                rubiks_cube.R,
+                rubiks_cube.r,
+                rubiks_cube.B,
+                rubiks_cube.b,
+                rubiks_cube.L,
+                rubiks_cube.l,
+                rubiks_cube.D,
+                rubiks_cube.d,
+                rubiks_cube.X,
+                rubiks_cube.x,
+                rubiks_cube.Y,
+                rubiks_cube.y,
+                rubiks_cube.Z,
+                rubiks_cube.z,
+            ])()
+        return rubiks_cube
 
     def FURurf(self):
         return self.F().U().R().u().r().f()
@@ -385,6 +391,66 @@ class RubiksCube(object):
                 self.front[2],
             ],
             down=self.__counterclockwise(self.down),
+        )
+
+    def X(self):
+        return RubiksCube(
+            up=self.front,
+            front=self.down,
+            right=self.__clockwise(self.right),
+            back=self.__clockwise(self.__clockwise(self.up)),
+            left=self.__counterclockwise(self.left),
+            down=self.__clockwise(self.__clockwise(self.back)),
+        )
+
+    def x(self):
+        return RubiksCube(
+            up=self.__clockwise(self.__clockwise(self.back)),
+            front=self.up,
+            right=self.__counterclockwise(self.right),
+            back=self.__clockwise(self.__clockwise(self.down)),
+            left=self.__clockwise(self.left),
+            down=self.front,
+        )
+
+    def Y(self):
+        return RubiksCube(
+            up=self.__clockwise(self.up),
+            front=self.right,
+            right=self.back,
+            back=self.left,
+            left=self.front,
+            down=self.__counterclockwise(self.down),
+        )
+
+    def y(self):
+        return RubiksCube(
+            up=self.__counterclockwise(self.up),
+            front=self.left,
+            right=self.front,
+            back=self.right,
+            left=self.back,
+            down=self.__clockwise(self.down),
+        )
+
+    def Z(self):
+        return RubiksCube(
+            up=self.__clockwise(self.left),
+            front=self.__clockwise(self.front),
+            right=self.__clockwise(self.up),
+            back=self.__counterclockwise(self.back),
+            left=self.__clockwise(self.down),
+            down=self.__clockwise(self.right),
+        )
+
+    def z(self):
+        return RubiksCube(
+            up=self.__counterclockwise(self.right),
+            front=self.__counterclockwise(self.front),
+            right=self.__counterclockwise(self.down),
+            back=self.__clockwise(self.back),
+            left=self.__counterclockwise(self.up),
+            down=self.__counterclockwise(self.left),
         )
 
     def __check(self):
