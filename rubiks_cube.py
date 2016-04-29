@@ -93,6 +93,14 @@ class RubiksCube(object):
                 rubiks_cube = RubiksCube.__dict__[op](rubiks_cube)
         return rubiks_cube
 
+    def indices(self):
+        result = list()
+        for face in [self.up, self.front, self.right, self.back, self.left, self.down]:
+            for row in face:
+                for square in row:
+                    result.append(square.value)
+        return result
+
     @staticmethod
     def simplify(solution):
         solution = solution.replace('UUU', 'u')
